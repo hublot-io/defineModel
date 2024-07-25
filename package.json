@@ -1,0 +1,17 @@
+{
+  "name": "@hublot-io/defineModel",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "defineModel implementation for vue 2.7 according to 3.4 usage",
+  "main": "src/index.ts",
+  "repository": "git@github.com:hublot-io/defineModel.git",
+  "author": "Alexandre BERTRAND <alexandre@hublot.io>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+		"vue": "^2.7.0"
+	},
+  "devDependencies": {
+    "vue": "^2.7.0"
+  }
+}
