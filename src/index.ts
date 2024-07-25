@@ -7,7 +7,7 @@ const bus = new Vue()
 
 
 Vue.directive('models', {
-    update: function(el, binding, vnode){ 
+    update: function(el, binding, vnode){
         bus.$emit('directive-update-' + binding.arg, {el, binding, vnode} )        
     },
     inserted: function (el, binding, vnode) {
@@ -22,20 +22,33 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
     const __instance = getCurrentInstance().proxy;
     const __internalValue = ref<T>()
 
-    if(modelValue === 'input')
+    if(modelValue === 'input'){
         __internalValue.value = __instance.$attrs.value as T
+
+        setTimeout(() => {
+            const parentRefs = Object.getOwnPropertyNames(__instance.$parent._setupState).filter((name) => {
+               return __instance.$parent._setupState[name].dep
+            })
+
+            parentRefs.forEach(ref => { 
+                watch(__instance.$parent._setupState[ref], () => { 
+                 __internalValue.value = __instance.$attrs.value as T
+               })
+            })
+        })
+    }
     else {
         bus.$on('directive-insert-' + modelValue, ({el, binding, vnode}) => {
             if(binding.value)
                 __internalValue.value = binding.value
-
+           
             setTimeout(() => {
-                bus.$emit(vnode.context!.$vnode.tag! + '-' + binding.arg,  __internalValue.value);
+                 bus.$emit(vnode.context!.$vnode.tag! + '-' + binding.arg,  __internalValue.value);
             })
 
             watch(__internalValue, () => {
                 if(__internalValue.value !== binding.value)
-                   bus.$emit(vnode.context!.$vnode.tag! + '-' + binding.arg,  __internalValue.value);
+                    bus.$emit(vnode.context!.$vnode.tag! + '-' + binding.arg,  __internalValue.value);
             })
         })
 
@@ -46,8 +59,8 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
 
    
     watch(__internalValue, () => {
-        if(modelValue === 'input')
-            __instance.$emit(modelValue, __internalValue.value);
+         if(modelValue === 'input')
+             __instance.$emit(modelValue, __internalValue.value);
     })
   
     return __internalValue as Ref<T>
