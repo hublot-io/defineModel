@@ -9,22 +9,16 @@
   </template>
   
   <script lang="ts" setup>
-import { ref } from 'vue';
-import { bindModels } from '../src/index.ts'
-import HelloWorld from './components/HelloWorld.vue';
+      import { ref } from 'vue';
+      import { bindModels } from '../src/index.ts'
+      import HelloWorld from './components/HelloWorld.vue';
 
 
 
-const classic = ref()
-const multi = ref('test')
-const other = ref()
+      const classic = ref()
+      const multi = ref('test')
+      const other = ref('other')
 
-bindModels({ multi, other })
-
-
-
+      bindModels({ multi, other })
   </script>
   
-  <style>
-
-  </style>

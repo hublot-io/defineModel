@@ -5,7 +5,7 @@ defineModel implementation for vue 2.7 according to 3.4 usage
 ### Installation 
 
 ```
-yarn add @hublot-io/defineModel
+yarn add @hublot-io/define-model
 ```
 
 ### Usage
@@ -14,8 +14,9 @@ yarn add @hublot-io/defineModel
 
 When your component only needs to expose a single v-model, you can use it as in Vue 3.4.
 
+`parent.vue`
 
-```parent.vue 
+```vue
 
 <template>
     <span>
@@ -39,7 +40,9 @@ When your component only needs to expose a single v-model, you can use it as in 
 You only need to add the import of defineModel in the child for it to be found. When you migrate to Vue 3.4, you will simply need to remove the import.
 
 
-```children.vue 
+`children.vue `
+
+```vue
 
 <template>
   <div>
@@ -48,7 +51,7 @@ You only need to add the import of defineModel in the child for it to be found. 
 </template>
 
 <script lang="ts" setup>
-import { defineModel } from '@hublot-io/defineModel'
+import { defineModel } from '@hublot-io/define-model'
 
 const classic = defineModel<string>()
 
@@ -64,8 +67,9 @@ const classic = defineModel<string>()
 As in Vue 3.4, you have the possibility to add multiple v-models on a component. However, since Vue 2 does not allow arguments on the model directive, you will need to use a custom directive: v-models.
 Additionally, you will need to bind the refs of your v-models so that the library can access and modify them.
 
+`parent.vue`
 
-```parent.vue 
+```vue
 
 <template>
     <span>
@@ -78,7 +82,7 @@ Additionally, you will need to bind the refs of your v-models so that the librar
   
   <script lang="ts" setup>
       import { ref } from 'vue';
-      import { bindModels } from '@hublot-io/defineModel'
+      import { bindModels } from '@hublot-io/define-model'
       import HelloWorld from './components/HelloWorld.vue';
 
       const classic = ref()
@@ -92,7 +96,9 @@ Additionally, you will need to bind the refs of your v-models so that the librar
 
 In the child component, you can use defineModel in the same way as in Vue 3.4.
 
-```children.vue 
+`children.vue`
+
+```vue
 
 <template>
   <div>
@@ -102,7 +108,7 @@ In the child component, you can use defineModel in the same way as in Vue 3.4.
 </template>
 
 <script lang="ts" setup>
-import { defineModel } from '@hublot-io/defineModel'
+import { defineModel } from '@hublot-io/define-model'
 
 const multi = defineModel("multi")
 const other = defineModel("other")
