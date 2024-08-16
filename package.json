@@ -7,11 +7,14 @@
   "repository": "git@github.com:hublot-io/defineModel.git",
   "author": "Alexandre BERTRAND <alexandre@hublot.io>",
   "license": "MIT",
-  "private": false,
+  "scripts": {
+    "dev": "vite serve example"
+  },
   "peerDependencies": {
-		"vue": "^2.7.0"
-	},
+    "vue": "^2.7.0"
+  },
   "devDependencies": {
+    "vite": "^5.4.1",
     "vue": "^2.7.0"
   }
 }

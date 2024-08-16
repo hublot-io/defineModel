@@ -5,6 +5,10 @@ import { getCurrentInstance } from 'vue'
 
 const bus = new Vue()
 
+Vue.mixin({
+    props : ["value"],
+})
+
 
 Vue.directive('models', {
     update: function(el, binding, vnode){
@@ -26,15 +30,10 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
         __internalValue.value = __instance.$attrs.value as T
 
         setTimeout(() => {
-            const parentRefs = Object.getOwnPropertyNames(__instance.$parent._setupState).filter((name) => {
-               return __instance.$parent._setupState[name].dep
+            watch(__instance.$props, () => {
+                __internalValue.value = __instance.$props.value as T
             })
 
-            parentRefs.forEach(ref => { 
-                watch(__instance.$parent._setupState[ref], () => { 
-                 __internalValue.value = __instance.$attrs.value as T
-               })
-            })
         })
     }
     else {
