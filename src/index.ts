@@ -27,7 +27,7 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
     const __internalValue = ref<T>()
 
     if(modelValue === 'input'){
-        __internalValue.value = __instance.$attrs.value as T
+        __internalValue.value = __instance.$props.value as T
 
         setTimeout(() => {
             watch(__instance.$props, () => {
