@@ -32,7 +32,7 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
         setTimeout(() => {
             watch(__instance.$props, () => {
                 __internalValue.value = __instance.$props.value as T
-            })
+            }, { deep : true})
 
         })
     }
@@ -48,7 +48,7 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
             watch(__internalValue, () => {
                 if(__internalValue.value !== binding.value)
                     bus.$emit(vnode.context!.$vnode.tag! + '-' + binding.arg,  __internalValue.value);
-            })
+            }, { deep : true})
         })
 
         bus.$on('directive-update-' + modelValue, ({el, binding, vnode}) => { 
@@ -60,7 +60,7 @@ export function defineModel<T>(modelValue : string = 'input') : Ref<T>{
     watch(__internalValue, () => {
          if(modelValue === 'input')
              __instance.$emit(modelValue, __internalValue.value);
-    })
+    }, { deep : true})
   
     return __internalValue as Ref<T>
 
